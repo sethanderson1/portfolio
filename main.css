@@ -94,31 +94,44 @@ header h5 {
   animation: fadein 1s;
 }
 
-div .social_media {
+div .social-media {
   text-align: center;
 }
 
-div .icons_media {
+div .icons-media {
   position: absolute;
   bottom: 0px;
   left: 0;
   right: 0;
 }
 
-.icons_media li {
+.icons-media li {
   display: inline;
   font-size: 5vh;
   padding: 0.5%;
   animation: fontbulger 1s;
 }
 
-.icons_media li a {
+.icons-media li a {
   color: black;
 }
 
-.icons_media li a i:hover {
-  color: rgb(56, 56, 156);
+.linkedin:hover {
+  color: #0077b5;
   cursor: pointer;
+  transition: all 0.4s;
+}
+
+.github:hover {
+  color: #62287f;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.email:hover {
+  color: #d54d40;
+  cursor: pointer;
+  transition: all 0.4s;
 }
 
 section {
@@ -133,6 +146,8 @@ section:nth-child(even) {
 
 .about-headline {
 }
+
+
 .about-headline,
 .portfolio-headline {
   text-align: center;
