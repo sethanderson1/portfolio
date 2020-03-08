@@ -33,13 +33,12 @@ footer ul {
 }
 
 footer .icons-media {
-  margin:0; 
-  top:0px;
+  margin: 0;
+  top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
 }
-
 
 nav {
   position: fixed;
@@ -113,18 +112,23 @@ div .social-media {
   text-align: center;
 }
 
-.icons-media {
-  position: absolute;
+header .icons-media {
+  position: fixed;
   bottom: 56px;
   left: 0px;
   right: 0px;
 }
 
-
+footer .icons-media {
+  position: relative;
+  bottom: 56px;
+  left: 0px;
+  right: 0px;
+}
 
 .icons-media li {
   display: inline;
-  font-size: 5vh;
+  font-size: 2rem;
   padding: 0.5%;
   animation: fontbulger 1s;
 }
@@ -239,6 +243,14 @@ img.center {
     opacity: 1;
   }
 }
+@media screen and (min-width: 500px) {
+  .icons-media {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+}
 
 @media screen and (min-width: 800px) {
   header h1 {
@@ -254,7 +266,6 @@ img.center {
 
   .portfolio-img {
     display: flex;
-
   }
 
   .project-info {
@@ -289,7 +300,6 @@ img.center {
   font-size: 1.4rem;
   color: rgb(62, 78, 110);
   transition: 0.3s;
-
 }
 
 .app-link:hover {
