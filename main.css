@@ -243,8 +243,8 @@ img.center {
     opacity: 1;
   }
 }
-@media screen and (min-width: 500px) {
-  .icons-media {
+@media screen and (min-width: 480px) {
+  header .icons-media {
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -252,7 +252,7 @@ img.center {
   }
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 768px) {
   header h1 {
     font-size: 5.5rem;
   }
@@ -298,11 +298,12 @@ img.center {
 .app-link {
   font-weight: bold;
   font-size: 1.4rem;
-  color: rgb(62, 78, 110);
+  color: rgb(49, 97, 136);
   transition: 0.3s;
 }
 
 .app-link:hover {
   cursor: pointer;
-  color: rgb(64, 103, 212);
+  text-decoration: underline;
+  color: rgb(55, 145, 218);
 }
