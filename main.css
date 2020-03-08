@@ -114,7 +114,7 @@ div .social-media {
 
 header .icons-media {
   position: fixed;
-  bottom: 56px;
+  bottom: 0px;
   left: 0px;
   right: 0px;
 }
