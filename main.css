@@ -17,8 +17,6 @@ body {
 
 nav,
 footer {
-  /* padding: 1% 0; */
-
   background-color: white;
 }
 
@@ -158,14 +156,6 @@ footer .icons-media {
 section {
   min-height: 200px;
   padding: 6% 0;
-  /* background-color: #bbb; */
-}
-
-section:nth-child(even) {
-  /* background-color: #ddd; */
-}
-
-.about-headline {
 }
 
 .about-headline,
@@ -281,19 +271,11 @@ img.center {
     width: 50%;
   }
 
-  /* img.center {
-    width:50%;
-  } */
-
   .about-headline,
   .portfolio-headline {
     font-size: 2rem;
   }
 }
-
-/* .project-info a:hover {
-  color: rgb(155, 155, 189);
-} */
 
 .app-link {
   font-weight: bold;
