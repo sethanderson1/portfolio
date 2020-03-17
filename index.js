@@ -5,6 +5,8 @@ $('.scroller').on('click', function (event) {
     }, 600)
 })
 
+document.getElementById('home').style.minHeight=`${window.innerHeight}px`
+
 
 // $(window).scroll(function () {
 //     const scrollThreshold = 56;

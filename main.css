@@ -75,11 +75,18 @@ nav {
 }
 
 header {
-  padding: 12% 0;
-  height: 100vh;
-  position: relative;
+  /* padding: 12% 0; */
+  display:flex;
+  flex-direction: column;
+
+  /* min-height: 100vh; */
+  /* position: relative; */
   padding-top: 30vh;
   text-align: center;
+}
+
+#header-page-content {
+  flex:1;
 }
 
 header ul {
@@ -111,10 +118,10 @@ div .social-media {
 }
 
 header .icons-media {
-  position: absolute;
+  /* position: absolute;
   bottom: 56px;
   left: 0px;
-  right: 0px;
+  right: 0px; */
 }
 
 footer .icons-media {
@@ -235,10 +242,10 @@ img.center {
 }
 @media screen and (min-width: 480px) {
   header .icons-media {
-    position: absolute;
+    /* position: absolute;
     bottom: 0px;
     left: 0px;
-    right: 0px;
+    right: 0px; */
   }
 }
 
