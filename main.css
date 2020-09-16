@@ -9,10 +9,17 @@ a {
 
 body {
   font-family: "Fira Sans", sans-serif;
-  font-size: 20px;
+  font-size: 1rem;
   color: #444;
   line-height: 1.5;
   margin: 0;
+}
+
+.img-container {
+  /* display: inline; */
+  margin: 0;
+  /* flex: 1; */
+  width: 100%;
 }
 
 nav,
@@ -76,7 +83,7 @@ nav {
 
 header {
   /* padding: 12% 0; */
-  display:flex;
+  display: flex;
   flex-direction: column;
 
   /* min-height: 100vh; */
@@ -86,7 +93,7 @@ header {
 }
 
 #header-page-content {
-  flex:1;
+  flex: 1;
 }
 
 header ul {
@@ -257,13 +264,10 @@ img.center {
     font-size: 2rem;
   }
 
-  /* .portfolio-img-box {
-    display:flex;
-  } */
-
   .portfolio-img {
     display: flex;
   }
+
 
   .project-info {
     width: 50%;
@@ -271,11 +275,20 @@ img.center {
     margin: auto 0;
   }
 
+  .project-info p {
+    /* font-size: 16px; */
+  }
+
+  
+.img-container {
+  /* display: inline; */
+  margin: 0;
+  /* flex: 1; */
+  width: 50%;
+}
+
   .portfolio-img img {
-    /* display: inline; */
     margin: 0;
-    /* flex:1; */
-    width: 50%;
   }
 
   .about-headline,
