@@ -38,7 +38,7 @@ let height = window.innerHeight * 1.6
   console.log('rowLength', rowLength)
   let id = 0;
   let upperBound = 255;
-  let lowerBound = 180;
+  let lowerBound = 220;
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
     for (let x = 0; x < rowLength + 1; x++) {
