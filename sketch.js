@@ -20,7 +20,7 @@ function setup() {
   // todo: might have to have better way of controlling width
   // maybe set something to position relative. 
   // figure out something to prevent horizontal scroll par from appearing
-  createCanvas(width * 0.986, height * 0.993);
+  createCanvas(width , height * 0.993);
   frameRate(15)
   initHex()
 }
@@ -29,7 +29,7 @@ function initHex() {
   
 let width = window.innerWidth;
 let height = window.innerHeight * 1.6
-  let space = height * 0.07; // x spacing
+  let space = height * 0.2; // x spacing
   let hexWidth = space * 0.5766;
   let colLength = Math.ceil(height / space);
   let rowLength = Math.ceil(width / space);
