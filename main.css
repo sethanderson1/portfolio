@@ -7,6 +7,10 @@ a {
   color: inherit;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Fira Sans", sans-serif;
   font-size: 1rem;
@@ -14,6 +18,20 @@ body {
   line-height: 1.5;
   margin: 0;
 }
+
+.p5js-container {
+  position: absolute;
+  width: 200px;
+}
+
+canvas {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-10;
+  }
 
 .img-container {
   /* display: inline; */
@@ -175,7 +193,7 @@ section {
 .about-headline,
 .portfolio-headline {
   text-align: center;
-  margin: 0 0 3rem;
+  margin: 5rem 0 5rem 0;
 }
 
 .portfolio-headline {
@@ -185,6 +203,11 @@ section {
   padding: 12% 7%;
   height: 100vh;
   position: relative;
+  background-image:linear-gradient(to top, rgba(255,255,255,1), 
+  rgba(255,255,255,1), rgba(255,255,255,1), 
+  rgba(255,255,255,1),rgba(255,255,255,1),rgba(255,255,255,1),
+   rgba(255,255,255,0.01));
+  z-index:0;
 }
 
 .bio-page p {
