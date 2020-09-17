@@ -92,7 +92,7 @@ class Hex {
   incrementColor() {
 
     if (this.color > this.lowerBound && this.color < this.upperBound) {
-      if (Math.random() > 0) {
+      if (Math.random() > 0.25) {
         if (this.isIncreasing) {
           this.color++;
         } else {
