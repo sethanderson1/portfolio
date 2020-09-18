@@ -30,7 +30,7 @@ function initHex() {
   let width = window.innerWidth;
   let height = window.innerHeight * 1.6
   // start with approx desired spacing coef
-  let seedSpacingCoef = 0.2
+  let seedSpacingCoef = 0.4
   // generate actual spacing to be at the right width such that
   // the row of hexagons are symmetrical. 
   // looks more pleasing that way
@@ -44,9 +44,9 @@ function initHex() {
   function generateSpacingCoef(width,seedSpacingCoef) {
     let space = height * seedSpacingCoef
     let i = 0
-    while (width % space > 20 && i < 100) {
+    while (width % space > 10 && i < 100) {
       space = height * seedSpacingCoef
-      seedSpacingCoef += 0.001;
+      seedSpacingCoef -= 0.001;
       i++
     }
     return seedSpacingCoef
