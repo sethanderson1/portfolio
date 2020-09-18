@@ -2,6 +2,13 @@
 // colors (or just grayscale shades) oscillate between
 // two bounds at varying rates
 
+// todo: mobile a bit glitchy when scroll 
+// i think the reason might be: when at top of page,
+// scroll bar isn't there, then when scroll down, 
+// scroll bar appears and decreases the width slighly, 
+// then setup funciton must run and mess things up??
+// fix would be to maybe have width slot into notches type thing
+
 // let height = document.body.scrollHeight
 const hex = [];
 
@@ -31,7 +38,7 @@ function initHex() {
   let height = window.innerHeight * 1.6
   // start with approx desired spacing coef
   let seedSpacingCoef = 0.4
-  // generate actual spacing to be at the right width such that
+  // generate actual spacing to be at the correct width such that
   // the row of hexagons are symmetrical. 
   // looks more pleasing that way
   let spacingCoef = generateSpacingCoef(width,seedSpacingCoef);
