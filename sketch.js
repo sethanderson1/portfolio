@@ -28,31 +28,32 @@ function setup() {
   // maybe set something to position relative. 
   // figure out something to prevent horizontal scroll par from appearing
   createCanvas(width, height * 0.993);
-  frameRate(15)
+  frameRate(10)
   initHex()
 }
 
 function initHex() {
 
   let width = window.innerWidth;
-  let height = window.innerHeight * 1.6
+  let height = window.innerHeight * 1.6 
   // start with approx desired spacing coef
-  let seedSpacingCoef = 0.2
+  let seedSpacingCoef = 0.4
   // generate actual spacing to be at the correct width such that
   // the row of hexagons are symmetrical. 
   // looks more pleasing that way
   let spacingCoef = generateSpacingCoef(width,seedSpacingCoef);
-  let space = height * spacingCoef; // x spacing
+  let space = width * spacingCoef; // x spacing
   let hexWidth = space * 0.5766;
   let colLength = Math.ceil(height / space);
+  console.log('colLength', colLength)
   let rowLength = Math.ceil(width / space);
 
   
   function generateSpacingCoef(width,seedSpacingCoef) {
-    let space = height * seedSpacingCoef
+    let space = width * seedSpacingCoef
     let i = 0
     while (width % space > 2 && i < 100) {
-      space = height * seedSpacingCoef
+      space = width * seedSpacingCoef
       seedSpacingCoef -= 0.001;
       i++
     }
@@ -118,7 +119,7 @@ class Hex {
   incrementColor() {
 
     if (this.color > this.lowerBound && this.color < this.upperBound) {
-      if (Math.random() > 0.25) {
+      if (random() > 0.25) {
         if (this.isIncreasing) {
           this.color++;
         } else {
