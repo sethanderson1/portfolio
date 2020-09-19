@@ -120,8 +120,8 @@ class Hex {
   incrementColor() {
 
     if (this.color > this.lowerBound && this.color < this.upperBound) {
-      // if (random() > 0.25) {
-      if (true) {
+      if (random() > 0.1) {
+      // if (true) {
         if (this.isIncreasing) {
           // this.color+=floor(abs(randomGaussian(1, 1)))+1;
           if (random() > 0.999) {
