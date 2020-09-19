@@ -28,7 +28,7 @@ function setup() {
   // maybe set something to position relative. 
   // figure out something to prevent horizontal scroll par from appearing
   createCanvas(width, height * 0.993);
-  frameRate(10)
+  frameRate(15)
   initHex()
 }
 
@@ -37,7 +37,7 @@ function initHex() {
   let width = window.innerWidth;
   let height = window.innerHeight * 1.6 
   // start with approx desired spacing coef
-  let seedSpacingCoef = 0.4
+  let seedSpacingCoef = 0.3
   // generate actual spacing to be at the correct width such that
   // the row of hexagons are symmetrical. 
   // looks more pleasing that way
