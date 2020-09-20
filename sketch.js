@@ -28,7 +28,7 @@ function setup() {
   // maybe set something to position relative. 
   // figure out something to prevent horizontal scroll par from appearing
   createCanvas(width, height * 0.993);
-  frameRate(12)
+  frameRate(24)
   initHex()
 }
 
@@ -92,6 +92,7 @@ function draw() {
     h.incrementColor()
     h.makeHexagon()
   })
+  // console.log('frameRate()', frameRate())
 }
 
 function windowResized() {
@@ -120,21 +121,23 @@ class Hex {
   incrementColor() {
 
     if (this.color > this.lowerBound && this.color < this.upperBound) {
-      if (random() > 0.1) {
-      // if (true) {
+      // if (random() > 0.1) {
+      if (true) {
         if (this.isIncreasing) {
           // this.color+=floor(abs(randomGaussian(1, 1)))+1;
           if (random() > 0.999) {
             this.color += 80
           } else {
-            this.color += 2
+            this.color += random([0,1,1,1,1,1,2])
+            // this.color += 2
           }
         } else {
           // this.color-=floor(abs(randomGaussian(1, 1)))+1;
           if (random() > 0.999) {
             this.color -= 80
           } else {
-            this.color -= 2
+            this.color -= random([0,1,1,1,1,1,2])
+            // this.color -= 2
           }
 
         }
