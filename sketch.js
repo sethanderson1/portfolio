@@ -1,32 +1,12 @@
 // neat honeycomb pulsating color background thing
 // colors (or just grayscale shades) oscillate between
 // two bounds at varying rates
-
-// todo: mobile a bit glitchy when scroll 
-// i think the reason might be: when at top of page,
-// scroll bar isn't there, then when scroll down, 
-// scroll bar appears and decreases the width slighly, 
-// then setup funciton must run and mess things up??
-// fix would be to maybe have width slot into notches type thing
-
-// let height = document.body.scrollHeight
 const hex = [];
 
 function setup() {
 
   let width = window.innerWidth;
   let height = window.innerHeight * 1.6
-  // const body = document.body,
-  //   html = document.documentElement;
-
-  // const height = Math.max(body.scrollHeight, body.offsetHeight,
-  //   html.clientHeight, html.scrollHeight, html.offsetHeight);
-  //   console.log('height', height)
-
-
-  // todo: might have to have better way of controlling width
-  // maybe set something to position relative. 
-  // figure out something to prevent horizontal scroll par from appearing
   createCanvas(width, height * 0.993);
   frameRate(24)
   initHex()
@@ -46,7 +26,7 @@ function initHex() {
   // let hexWidth = space * 0.5766;
   let hexWidth = space * 0.578;
   let colLength = Math.ceil(height / space);
-  console.log('colLength', colLength)
+  // console.log('colLength', colLength)
   let rowLength = Math.ceil(width / space);
 
 
@@ -62,8 +42,8 @@ function initHex() {
   }
 
 
-  console.log('colLength', colLength)
-  console.log('rowLength', rowLength)
+  // console.log('colLength', colLength)
+  // console.log('rowLength', rowLength)
   let id = 0;
   let upperBound = 255;
   let lowerBound = 180;
@@ -81,7 +61,7 @@ function initHex() {
         hex[id].makeHexagon();
       }
       id++;
-      console.log('id', id)
+      // console.log('id', id)
     }
   }
 }
