@@ -110,6 +110,10 @@ nav {
   list-style: none;
 }
 
+.nav-links-right {
+  display:flex;
+}
+
 .nav-links li {
   margin: 0 0.5rem;
   display: inline;
@@ -231,6 +235,10 @@ section {
   margin: 5rem 0 170px 0;
 }
 
+#portfolio {
+  margin-bottom: 30vh;
+}
+
 .portfolio-img-box {
   /* max-width: 1600px; */
   margin: 0 auto;
@@ -293,6 +301,17 @@ section {
 img.center {
   display: block;
   margin: 0 auto;
+}
+
+footer {
+    height:20vh;
+
+}
+
+.footer-heading {
+  /* overflow-y: hidden; */
+  /* position: absolute; */
+  /* height:200px; */
 }
 
 @keyframes fadein {
