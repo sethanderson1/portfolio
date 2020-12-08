@@ -304,8 +304,8 @@ img.center {
 }
 
 footer {
-    height:20vh;
-
+    /* height:20vh; */
+  margin-bottom: 100px;
 }
 
 .footer-heading {
