@@ -292,9 +292,10 @@ section {
 
 .tech-icons {
   font-size: 2rem;
+  /* max-height: 2rem; */
 }
 
-.project-description {
+description {
   margin-top: 0.5rem;
 }
 
