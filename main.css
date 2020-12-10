@@ -93,18 +93,24 @@ footer {
   max-height: 80px;
   /* width: 100%; */
 }
-.social-img-wrap a {
+.social-img-wrap .social-img-link,
+.social-img-wrap a  {
   color: #215d9c;
   transition: 0.3s;
 }
 
-.social-img-wrap a:hover {
+.social-img-wrap .social-img-link:hover {
   /* filter: brightness(50%);
   filter: grayscale(60%);
   filter: drop-shadow(10px 10px 4px rgba(50,50,50,0.3)); */
   filter: drop-shadow(0 0 0.4rem rgba(50,50,50,0.3));
   /* filter:blur(1px); */
   
+}
+
+.social-text a:hover {
+  filter: brightness(160%);
+
 }
 
 .social-text h2 {
