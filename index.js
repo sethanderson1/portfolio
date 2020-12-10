@@ -5,10 +5,10 @@ $('.scroller').on('click', function (event) {
     }, 600)
 })
 
-document.getElementById('home').style.minHeight=`${window.innerHeight}px`
+document.getElementById('home').style.minHeight = `${window.innerHeight}px`
 
 
-
+document.querySelector('.copyright-date').innerHTML = new Date().getFullYear();
 
 
 
