@@ -58,7 +58,7 @@ footer {
 }
 
 footer {
-  height: 10vh;
+  height: 20vh;
   position: relative;
   text-align: center;
 }
@@ -111,7 +111,7 @@ nav {
 }
 
 .nav-links-right {
-  display:flex;
+  display: flex;
 }
 
 .nav-links li {
@@ -302,11 +302,6 @@ description {
 img.center {
   display: block;
   margin: 0 auto;
-}
-
-footer {
-    /* height:20vh; */
-  margin-bottom: 100px;
 }
 
 .footer-heading {
