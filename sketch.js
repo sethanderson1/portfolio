@@ -10,12 +10,12 @@ const colorSchemes = [
   ['#0F4155', '#5399A1', '#8CA96B', '#CB5548', '#E7E6F5'],
   ['#DBE5EC', '#336B87', '#2A3132', '#E94D35', '#EFAC55'],
   ['#8A867F', '#FFE8B7', '#FFBE87', '#E38A74', '#BF5967'],
-  ['#507A4A', '#C0C480', '#FFEAA4', '#FFCDA4', '#FF938D'],
+  // ['#507A4A', '#C0C480', '#FFEAA4', '#FFCDA4', '#FF938D'],
   ['#2A5A26', '#3E742F', '#568D3B', '#6DA850', '#89C15F'],
   ['#0B1C26', '#234459', '#7AA5BF', '#A0C3D9', '#BF7950'],
   ['#234D51', '#9DD3D9', '#59C6D1', '#3B4F51', '#FF513F'],
-  ['#FF4858', '#1B7F79', '#00CCC0', '#72F2EB', '#747F7F'],
-  ['#A6BF5B', '#E85C34', '#699748', '#2D411E', '#FF5A2B'],
+  // ['#FF4858', '#1B7F79', '#00CCC0', '#72F2EB', '#747F7F'],
+  // ['#A6BF5B', '#E85C34', '#699748', '#2D411E', '#FF5A2B'],
 ];
 
 function setup() {
@@ -67,7 +67,6 @@ function initHex() {
   let upperAlphaBound = 130;
   let lowerAlphaBound = 50;
   let colorScheme = random(colorSchemes)
-  console.log('colorScheme', colorScheme)
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
     for (let x = 0; x < rowLength + 1; x++) {
