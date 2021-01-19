@@ -2,6 +2,24 @@
 // colors (or just grayscale shades) oscillate between
 // two bounds at varying rates
 const hex = [];
+const colorSchemes = [
+  ['#E8614F', '#F3F2DB', '#79C3A7', '#668065', '#4B3331'],
+  ['#152A3B', '#158ca7', '#F5C03E', '#D63826', '#F5F5EB'],
+  ['#0F4155', '#288791', '#7ec873', '#F04132', '#fcf068'],
+  ['#152A3B', '#0D809C', '#F5C03E', '#D63826', '#EBEBD6'],
+  ['#0F4155', '#5399A1', '#8CA96B', '#CB5548', '#E7E6F5'],
+  ['#DBE5EC', '#336B87', '#2A3132', '#E94D35', '#EFAC55'],
+  ['#8A867F', '#FFE8B7', '#FFBE87', '#E38A74', '#BF5967'],
+  ['#507A4A', '#C0C480', '#FFEAA4', '#FFCDA4', '#FF938D'],
+  ['#2A5A26', '#3E742F', '#568D3B', '#6DA850', '#89C15F'],
+  ['#0B1C26', '#234459', '#7AA5BF', '#A0C3D9', '#BF7950'],
+  ['#234D51', '#9DD3D9', '#59C6D1', '#3B4F51', '#FF513F'],
+  ['#FF4858', '#1B7F79', '#00CCC0', '#72F2EB', '#747F7F'],
+  ['#A6BF5B', '#E85C34', '#699748', '#2D411E', '#FF5A2B'],
+];
+const queueNum = [0, 1, 2, 3, 4];
+let clrs = colorSchemes[0];
+
 
 function setup() {
 
@@ -11,6 +29,8 @@ function setup() {
   frameRate(24)
   initHex()
 }
+
+
 
 function initHex() {
 
@@ -47,17 +67,21 @@ function initHex() {
   let id = 0;
   let upperBound = 255;
   let lowerBound = 180;
+  let upperAlphaBound = 80;
+  let lowerAlphaBound = 0;
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
     for (let x = 0; x < rowLength + 1; x++) {
-      let color = random(lowerBound, upperBound);
+      // let color = random(lowerBound, upperBound);
+      let color = 0;
+      let alpha = random(lowerAlphaBound, upperAlphaBound)
       if (y % 2 === 0) {
         hex[id] = new Hex(id, x * space, py, hexWidth,
-          color, upperBound, lowerBound);
+          color, alpha, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
         hex[id].makeHexagon();
       } else {
         hex[id] = new Hex(id, space / 2 + x * space, py,
-          hexWidth, color, upperBound, lowerBound);
+          hexWidth, color, alpha, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
         hex[id].makeHexagon();
       }
       id++;
@@ -85,62 +109,78 @@ function windowResized() {
 }
 
 class Hex {
-  constructor(id, x, y, radius, color, upperBound, lowerBound) {
+  constructor(id, x, y, radius, color, alpha, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = color;
+    this.alpha = alpha;
     this.isIncreasing = Math.random() > 0.5 ? true : false;
     this.upperBound = upperBound;
     this.lowerBound = lowerBound;
+    this.upperAlphaBound = upperAlphaBound;
+    this.lowerAlphaBound = lowerAlphaBound;
   }
 
 
 
   incrementColor() {
 
-    if (this.color > this.lowerBound && this.color < this.upperBound) {
+    // if (this.color > this.lowerBound && this.color < this.upperBound) {
+    if (this.alpha > this.lowerAlphaBound && this.alpha < this.upperAlphaBound) {
       // if (random() > 0.1) {
       if (true) {
         if (this.isIncreasing) {
           // this.color+=floor(abs(randomGaussian(1, 1)))+1;
           if (random() > 0.999) {
-            this.color += 80
+            this.alpha += 80
           } else {
-            this.color += random([0,1,1,1,1,1,2])
-            // this.color += 2
+            // this.color += random([0, 1, 1, 1, 1, 1, 2])
+            this.alpha += random([0, 1, 1, 1, 1, 1, 2])
           }
         } else {
           // this.color-=floor(abs(randomGaussian(1, 1)))+1;
           if (random() > 0.999) {
-            this.color -= 80
+            this.alpha -= 80
           } else {
-            this.color -= random([0,1,1,1,1,1,2])
-            // this.color -= 2
+            // this.color -= random([0, 1, 1, 1, 1, 1, 2])
+            this.alpha -= random([0, 1, 1, 1, 1, 1, 2])
           }
 
         }
       }
     }
 
-    if (this.color >= this.upperBound) {
-      this.color = this.upperBound
-      // this.color-=random([1,2,3,3,3,4,4,4,4]);
-      this.color -= floor(abs(randomGaussian(1, 1)));
+    if (this.alpha >= this.upperAlphaBound) {
+      this.alpha = this.upperAlphaBound
+      // this.alpha-=random([1,2,3,3,3,4,4,4,4]);
+      this.alpha -= floor(abs(randomGaussian(1, 1)));
       this.isIncreasing = false;
     }
-    if (this.color <= this.lowerBound) {
-      this.color = this.lowerBound
-      // this.color+=random([1,2,3,3,3,4,4,4,4]);
-      this.color += floor(abs(randomGaussian(1, 1)));
+    if (this.alpha <= this.lowerAlphaBound) {
+      this.alpha = this.lowerAlphaBound
+      // this.alpha+=random([1,2,3,3,3,4,4,4,4]);
+      this.alpha += floor(abs(randomGaussian(1, 1)));
       this.isIncreasing = true;
     }
+    // if (this.color >= this.upperBound) {
+    //   this.color = this.upperBound
+    //   // this.color-=random([1,2,3,3,3,4,4,4,4]);
+    //   this.color -= floor(abs(randomGaussian(1, 1)));
+    //   this.isIncreasing = false;
+    // }
+    // if (this.color <= this.lowerBound) {
+    //   this.color = this.lowerBound
+    //   // this.color+=random([1,2,3,3,3,4,4,4,4]);
+    //   this.color += floor(abs(randomGaussian(1, 1)));
+    //   this.isIncreasing = true;
+    // }
   }
 
   makeHexagon() {
     // fill(this.color, this.color, this.color, 255);
-    fill(this.color, this.color, this.color, 255);
+    fill(this.color, this.color, this.color, this.alpha);
     noStroke();
     strokeWeight(5);
     // stroke(`#6478E633`);
