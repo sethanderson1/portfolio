@@ -17,8 +17,8 @@ const colorSchemes = [
   ['#FF4858', '#1B7F79', '#00CCC0', '#72F2EB', '#747F7F'],
   ['#A6BF5B', '#E85C34', '#699748', '#2D411E', '#FF5A2B'],
 ];
-const queueNum = [0, 1, 2, 3, 4];
-let clrs = colorSchemes[0];
+// const queueNum = [0, 1, 2, 3, 4];
+// let clrs = colorSchemes[0];
 
 
 function setup() {
@@ -67,21 +67,26 @@ function initHex() {
   let id = 0;
   let upperBound = 255;
   let lowerBound = 180;
-  let upperAlphaBound = 80;
-  let lowerAlphaBound = 0;
+  let upperAlphaBound = 130;
+  let lowerAlphaBound = 50;
+  let colorScheme = random(colorSchemes)
+  console.log('colorScheme', colorScheme)
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
     for (let x = 0; x < rowLength + 1; x++) {
       // let color = random(lowerBound, upperBound);
-      let color = 0;
+      // let color = 0;
+      let color = random(colorScheme);
+      console.log('colorScheme', colorScheme)
+      console.log('color', color)
       let alpha = random(lowerAlphaBound, upperAlphaBound)
       if (y % 2 === 0) {
         hex[id] = new Hex(id, x * space, py, hexWidth,
-          color, alpha, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
+          color, alpha,colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
         hex[id].makeHexagon();
       } else {
         hex[id] = new Hex(id, space / 2 + x * space, py,
-          hexWidth, color, alpha, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
+          hexWidth, color, alpha,colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
         hex[id].makeHexagon();
       }
       id++;
@@ -109,13 +114,14 @@ function windowResized() {
 }
 
 class Hex {
-  constructor(id, x, y, radius, color, alpha, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound) {
+  constructor(id, x, y, radius, color, alpha,colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = color;
     this.alpha = alpha;
+    this.colorScheme = colorScheme;
     this.isIncreasing = Math.random() > 0.5 ? true : false;
     this.upperBound = upperBound;
     this.lowerBound = lowerBound;
@@ -133,16 +139,16 @@ class Hex {
       if (true) {
         if (this.isIncreasing) {
           // this.color+=floor(abs(randomGaussian(1, 1)))+1;
-          if (random() > 0.999) {
-            this.alpha += 80
+          if (random() > 0.9995) {
+            // this.alpha += 80
           } else {
             // this.color += random([0, 1, 1, 1, 1, 1, 2])
             this.alpha += random([0, 1, 1, 1, 1, 1, 2])
           }
         } else {
           // this.color-=floor(abs(randomGaussian(1, 1)))+1;
-          if (random() > 0.999) {
-            this.alpha -= 80
+          if (random() > 0.9995) {
+            // this.alpha -= 80
           } else {
             // this.color -= random([0, 1, 1, 1, 1, 1, 2])
             this.alpha -= random([0, 1, 1, 1, 1, 1, 2])
@@ -156,12 +162,16 @@ class Hex {
       this.alpha = this.upperAlphaBound
       // this.alpha-=random([1,2,3,3,3,4,4,4,4]);
       this.alpha -= floor(abs(randomGaussian(1, 1)));
+      // this.color = random(this.colorScheme)
       this.isIncreasing = false;
     }
     if (this.alpha <= this.lowerAlphaBound) {
       this.alpha = this.lowerAlphaBound
       // this.alpha+=random([1,2,3,3,3,4,4,4,4]);
-      this.alpha += floor(abs(randomGaussian(1, 1)));
+      this.alpha += floor(abs(randomGaussian(1, 1))) +3
+      if ( random() > 0.8) {
+        this.color = random(this.colorScheme)
+      }
       this.isIncreasing = true;
     }
     // if (this.color >= this.upperBound) {
@@ -180,7 +190,11 @@ class Hex {
 
   makeHexagon() {
     // fill(this.color, this.color, this.color, 255);
-    fill(this.color, this.color, this.color, this.alpha);
+    // fill(this.color, this.color, this.color, this.alpha);
+    let c = color(this.color)
+    // let c = color('#0f0')
+    fill(c.levels[0],c.levels[1],c.levels[2], this.alpha);
+    // fill(this.color, this.alpha);
     noStroke();
     strokeWeight(5);
     // stroke(`#6478E633`);
