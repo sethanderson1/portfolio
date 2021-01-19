@@ -64,8 +64,8 @@ function initHex() {
   let id = 0;
   let upperBound = 255;
   let lowerBound = 180;
-  let upperAlphaBound = 130;
-  let lowerAlphaBound = 50;
+  let upperAlphaBound = 110;
+  let lowerAlphaBound = 0;
   let colorScheme = random(colorSchemes)
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
@@ -145,9 +145,9 @@ class Hex {
       this.alpha = this.lowerAlphaBound
       this.alpha += 3
       // this.alpha += floor(abs(randomGaussian(1, 1))) +3
-      if (random() > 0.8) {
+      // if (random() > 0.0) {
         this.color = random(this.colorScheme)
-      }
+      // }
       this.isIncreasing = true;
     }
     // if (this.color >= this.upperBound) {
