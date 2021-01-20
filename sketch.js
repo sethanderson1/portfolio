@@ -23,7 +23,9 @@ function generateHexagons(space, rowLength, colLength, hexWidth) {
   let upperAlphaBound = 110;
   let lowerAlphaBound = 0;
   let colorScheme = random(colorSchemes)
-  console.log('colorScheme', colorScheme)
+  // console.log('colorScheme', colorScheme)
+  let coordsIdMap = generateCoordsMap(rowLength, colLength)
+
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
     // NOTE: rowLength should work but may need to do rowLength - 1 for some reason
@@ -31,8 +33,8 @@ function generateHexagons(space, rowLength, colLength, hexWidth) {
       console.log('id', 'x', 'y', id, x, y)
       let color = random(colorScheme);
       let alpha = random(lowerAlphaBound, upperAlphaBound);
-      let possibleNeighbors = generatePossibleNeighbors(colLength, rowLength, x, y);
-      console.log('possibleNeighbors', possibleNeighbors)
+      let possibleNeighbors = generatePossibleNeighbors(colLength, rowLength, id, x, y, coordsIdMap);
+      // console.log('possibleNeighbors', possibleNeighbors)
       let adjacencyList = {}
       if (y % 2 === 0) {
         hex[id] = new Hex(id, x * space, py, hexWidth,
@@ -56,6 +58,18 @@ function generateHexagons(space, rowLength, colLength, hexWidth) {
       id++;
     }
   }
+}
+
+function generateCoordsMap(rowLength, colLength) {
+  const coordsIdMap = {}
+  let id = 0
+  for (let y = 0; y < colLength; y++) {
+    for (let x = 0; x < rowLength; x++) {
+      coordsIdMap[[x, y]] = id
+      id++;
+    }
+  }
+  return coordsIdMap
 }
 
 function draw() {
@@ -159,41 +173,78 @@ const colorSchemes = [
 
 
 
-function generatePossibleNeighbors(colLength, rowLength, x, y) {
+function generatePossibleNeighbors(colLength, rowLength, id, x, y, coordsIdMap) {
   const possibleNeighbors = [];
-  if (x > 0 && x < rowLength - 1 && y > 0 && y < colLength - 1) {
-    if (y % 2 === 1) {
-      possibleNeighbors.push([x - 1, y], [x + 1, y], [x, y - 1],
-        [x + 1, y - 1], [x, y + 1], [x + 1, y + 1]);
-    } else {
-      possibleNeighbors.push([x - 1, y], [x + 1, y], [x - 1, y - 1],
-        [x, y - 1], [x - 1, y + 1], [x, y + 1]);
+
+  const setOfPossibleNeighborsEven = [[x - 1, y], [x + 1, y], [x - 1, y + 1], [x, y + 1], [x - 1, y - 1], [x, y - 1]]
+  const setOfPossibleNeighborsOdd = [[x - 1, y], [x + 1, y], [x, y + 1], [x + 1, y + 1], [x, y - 1], [x + 1, y - 1]]
+
+  setOfPossibleNeighborsEven.forEach(neighbor => {
+    if (coordsIdMap[neighbor] !== undefined && y % 2 === 0) {
+      possibleNeighbors.push(neighbor)
     }
-  }
-
-  if (x === 0 || y === 0) {
-    if (x === 0 && y === 0) {
-      possibleNeighbors.push([x + 1, y], [x, y + 1])
-    } else if (x === 0 && y === colLength - 1) {
-
-    } else if (x === 0) {
-
-    } else if (x === rowLength - 1 && y === 0) {
-
-    } else if (y === 0) {
-
+  })
+  setOfPossibleNeighborsOdd.forEach(neighbor => {
+    if (coordsIdMap[neighbor] !== undefined && y % 2 === 1) {
+      possibleNeighbors.push(neighbor)
     }
-  } else {
-    if (x === rowLength - 1 && y === colLength - 1) {
-      if (x % 2 === 1) possibleNeighbors.push([x - 1, y], [x, y - 1])
-      if (x % 2 === 0) possibleNeighbors.push([x - 1, y], [x - 1, y - 1], [x, y - 1])
-    } else if (x === rowLength - 1) {
-      if (x % 2 === 1) possibleNeighbors.push([x - 1, y], [x, y - 1], [x, y + 1])
-      if (x % 2 === 0) possibleNeighbors.push([x - 1, y], [x - 1, y - 1], [x, y - 1], [x - 1, y + 1], [x, y + 1])
-    } else if (y === colLength - 1) {
-      possibleNeighbors.push([x - 1, y], [x + 1, y], [x, y - 1], [x + 1, y - 1])
-    }
-  }
+  })
+  console.log('possibleNeighbors', possibleNeighbors)
+  console.log('coordsIdMap', coordsIdMap)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // if (x > 0 && x < rowLength - 1 && y > 0 && y < colLength - 1) {
+  //   if (y % 2 === 1) {
+  //     possibleNeighbors.push([x - 1, y], [x + 1, y], [x, y - 1],
+  //       [x + 1, y - 1], [x, y + 1], [x + 1, y + 1]);
+  //   } else {
+  //     possibleNeighbors.push([x - 1, y], [x + 1, y], [x - 1, y - 1],
+  //       [x, y - 1], [x - 1, y + 1], [x, y + 1]);
+  //   }
+  // }
+
+  // if (x === 0 || y === 0) {
+  //   if (x === 0 && y === 0) {
+  //     possibleNeighbors.push([x + 1, y], [x, y + 1])
+  //   } else if (x === 0 && y === colLength - 1) {
+  //     if (y % 2 === 1) possibleNeighbors.push([x + 1, y], [x, y - 1], [x + 1, y - 1])
+  //     if (y % 2 === 0) possibleNeighbors.push([x + 1, y], [x, y - 1])
+  //   } else if (x === 0) {
+  //     if (y % 2 === 1) possibleNeighbors.push([x + 1, y], [x, y - 1], [x, y + 1], [x + 1, y - 1], [x + 1, y + 1])
+  //     if (y % 2 === 0) possibleNeighbors.push([x + 1, y], [x, y - 1], [x, y + 1])
+  //   } else if (x === rowLength - 1 && y === 0) {
+  //     possibleNeighbors.push([x - 1, y], [x - 1, y + 1], [x, y + 1])
+  //   } else if (y === 0) {
+  //     possibleNeighbors.push([x - 1, y], [x + 1, y], [x-1, y + 1], [x, y + 1])
+  //   }
+  // } else {
+  //   if (x === rowLength - 1 && y === colLength - 1) {
+  //     if (x % 2 === 1) possibleNeighbors.push([x - 1, y], [x, y - 1])
+  //     if (x % 2 === 0) possibleNeighbors.push([x - 1, y], [x - 1, y - 1], [x, y - 1])
+  //   } else if (x === rowLength - 1) {
+  //     if (x % 2 === 1) possibleNeighbors.push([x - 1, y], [x, y - 1], [x, y + 1])
+  //     if (x % 2 === 0) possibleNeighbors.push([x - 1, y], [x - 1, y - 1], [x, y - 1], [x - 1, y + 1], [x, y + 1])
+  //   } else if (y === colLength - 1) {
+  //     possibleNeighbors.push([x - 1, y], [x + 1, y], [x, y - 1], [x + 1, y - 1])
+  //   }
+  // }
 
 
 
