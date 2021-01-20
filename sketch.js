@@ -172,7 +172,7 @@ class Hex {
       vertex(sx, sy);
     }
     endShape(CLOSE);
-  }
+  } 
 }
 
 
