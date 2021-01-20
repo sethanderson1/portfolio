@@ -158,7 +158,7 @@ class Hex {
       this.isIncreasing = true;
     }
   }
-
+ 
   makeHexagon() {
     let c = color(this.color)
     fill(c.levels[0], c.levels[1], c.levels[2], this.alpha);
