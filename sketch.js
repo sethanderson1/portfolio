@@ -29,7 +29,13 @@ function initHex() {
   let width = window.innerWidth;
   let height = window.innerHeight * 1.6
   // start with approx desired spacing coef
-  let seedSpacingCoef = 0.105
+  let seedSpacingCoef
+  if (width > 500) {
+    seedSpacingCoef = 0.105
+  } else {
+    seedSpacingCoef = 0.2
+  }
+  // console.log('seedSpacingCoef', seedSpacingCoef)
   // let seedSpacingCoef = 0.3
   // generate actual spacing to be at the correct width such that
   // the row of hexagons are symmetrical. 
@@ -62,7 +68,7 @@ function initHex() {
   let colorScheme = random(colorSchemes)
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
-    for (let x = 0; x < rowLength; x++) {
+    for (let x = 0; x < rowLength+1; x++) {
       // console.log('id', 'x', 'y', id, x, y)
       let color = random(colorScheme);
       let alpha = random(lowerAlphaBound, upperAlphaBound)
