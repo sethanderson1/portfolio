@@ -10,31 +10,27 @@ const colorSchemes = [
   ['#0F4155', '#5399A1', '#8CA96B', '#CB5548', '#E7E6F5'],
   ['#DBE5EC', '#336B87', '#2A3132', '#E94D35', '#EFAC55'],
   ['#8A867F', '#FFE8B7', '#FFBE87', '#E38A74', '#BF5967'],
-  // ['#507A4A', '#C0C480', '#FFEAA4', '#FFCDA4', '#FF938D'],
   ['#2A5A26', '#3E742F', '#568D3B', '#6DA850', '#89C15F'],
   ['#0B1C26', '#234459', '#7AA5BF', '#A0C3D9', '#BF7950'],
   ['#234D51', '#9DD3D9', '#59C6D1', '#3B4F51', '#FF513F'],
-  // ['#FF4858', '#1B7F79', '#00CCC0', '#72F2EB', '#747F7F'],
-  // ['#A6BF5B', '#E85C34', '#699748', '#2D411E', '#FF5A2B'],
 ];
 
 function setup() {
-
   let width = window.innerWidth;
   let height = window.innerHeight * 1.6
   createCanvas(width, height * 0.993);
-  frameRate(24)
+  frameRate(25)
+  background(255);
+  // noLoop()
   initHex()
 }
 
-
-
 function initHex() {
-
   let width = window.innerWidth;
   let height = window.innerHeight * 1.6
   // start with approx desired spacing coef
-  let seedSpacingCoef = 0.3
+  let seedSpacingCoef = 0.105
+  // let seedSpacingCoef = 0.3
   // generate actual spacing to be at the correct width such that
   // the row of hexagons are symmetrical. 
   // looks more pleasing that way
@@ -45,7 +41,7 @@ function initHex() {
   let colLength = Math.ceil(height / space);
   // console.log('colLength', colLength)
   let rowLength = Math.ceil(width / space);
-
+  // console.log('rowLength', rowLength)
 
   function generateSpacingCoef(width, seedSpacingCoef) {
     let space = width * seedSpacingCoef
@@ -58,9 +54,6 @@ function initHex() {
     return seedSpacingCoef
   }
 
-
-  // console.log('colLength', colLength)
-  // console.log('rowLength', rowLength)
   let id = 0;
   let upperBound = 255;
   let lowerBound = 180;
@@ -69,46 +62,60 @@ function initHex() {
   let colorScheme = random(colorSchemes)
   for (let y = 0; y < colLength; y++) {
     let py = y * space * sqrt(3) / 2; // y position
-    for (let x = 0; x < rowLength + 1; x++) {
-      // let color = random(lowerBound, upperBound);
-      // let color = 0;
+    for (let x = 0; x < rowLength; x++) {
+      // console.log('id', 'x', 'y', id, x, y)
       let color = random(colorScheme);
       let alpha = random(lowerAlphaBound, upperAlphaBound)
+      let possibleNeighbors = generatePossibleNeighbors(colLength, rowLength, x, y);
+      // console.log('possibleNeighbors', possibleNeighbors)
+      let adjacencyList = {}
       if (y % 2 === 0) {
         hex[id] = new Hex(id, x * space, py, hexWidth,
-          color, alpha, colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
+          color, alpha, colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound, possibleNeighbors, adjacencyList);
         hex[id].makeHexagon();
+        // let s = `${[id, x, y]}`
+        // textSize(15);
+        // fill(50);
+        // text(s, x * space - 20, py);
       } else {
         hex[id] = new Hex(id, space / 2 + x * space, py,
-          hexWidth, color, alpha, colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound);
+          hexWidth, color, alpha, colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound, possibleNeighbors, adjacencyList);
         hex[id].makeHexagon();
+        // let s = `${[id, x, y]}`
+        // textSize(15);
+        // fill(50);
+        // text(s, space / 2 + x * space - 20, py);
       }
       id++;
-      // console.log('id', id)
     }
+
   }
+
+
+}
+
+function generatePossibleNeighbors(colLength, rowLength, x, y) {
+  const possibleNeighbors = []
+  if (x > 0 && x < rowLength) {
+    possibleNeighbors.push([x - 1, y], [x + 1, y])
+  }
+
+  if (y > 0 && y < colLength) {
+    possibleNeighbors.push([x - 1, y - 1], [x, y - 1], [x - 1, y + 1], [x, y + 1])
+  }
+  return possibleNeighbors
 }
 
 function draw() {
   background(255);
   hex.forEach((h) => {
-    h.incrementColor()
+    h.incrementAlpha()
     h.makeHexagon()
   })
-  // console.log('frameRate()', frameRate())
-}
-
-function windowResized() {
-
-  let width = window.innerWidth;
-  let height = window.innerHeight * 1.6
-  resizeCanvas(width, height * 0.993);
-
-  initHex()
 }
 
 class Hex {
-  constructor(id, x, y, radius, color, alpha, colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound) {
+  constructor(id, x, y, radius, color, alpha, colorScheme, upperBound, lowerBound, upperAlphaBound, lowerAlphaBound, possibleNeighbors, adjacencyList) {
     this.id = id;
     this.x = x;
     this.y = y;
@@ -121,58 +128,42 @@ class Hex {
     this.lowerBound = lowerBound;
     this.upperAlphaBound = upperAlphaBound;
     this.lowerAlphaBound = lowerAlphaBound;
+    this.possibleNeighbors = possibleNeighbors;
+    this.adjacencyList = adjacencyList;
+
   }
 
-
-
-  incrementColor() {
-
+  incrementAlpha() {
     if (this.alpha > this.lowerAlphaBound && this.alpha < this.upperAlphaBound) {
-        if (this.isIncreasing) {
-          this.alpha += random([0, 1, 1, 1, 1, 1, 2])
-        } else {
-          this.alpha -= random([0, 1, 1, 1, 1, 1, 2])
-
-        }
+      if (this.isIncreasing) {
+        this.alpha += random([0, 1, 1, 2, 2, 2, 3, 3, 3,4])
+        // this.alpha += random([1,1,1,2,2,2,2,2,3,3,4,4])
+        // this.alpha += random([0, 1, 1, 1, 1, 1, 2])
+      } else {
+        this.alpha -= random([0, 1, 1, 2, 2, 2, 3, 3, 3,4])
+        // this.alpha -= random([1,1,1,2,2,2,2,2,3,3,4,4])
+        // this.alpha -= random([0, 1, 1, 1, 1, 1, 2])
+      }
     }
-
     if (this.alpha >= this.upperAlphaBound) {
       this.alpha = this.upperAlphaBound
-      this.alpha -= floor(abs(randomGaussian(1, 1)));
+      this.alpha -= 1;
+      // this.alpha -= floor(abs(randomGaussian(1, 1)));
       this.isIncreasing = false;
     }
     if (this.alpha <= this.lowerAlphaBound) {
       this.alpha = this.lowerAlphaBound
-      this.alpha += 3
-      // this.alpha += floor(abs(randomGaussian(1, 1))) +3
-      // if (random() > 0.0) {
-        this.color = random(this.colorScheme)
-      // }
+      this.alpha += 1;
+      this.color = random(this.colorScheme)
       this.isIncreasing = true;
     }
-    // if (this.color >= this.upperBound) {
-    //   this.color = this.upperBound
-    //   // this.color-=random([1,2,3,3,3,4,4,4,4]);
-    //   this.color -= floor(abs(randomGaussian(1, 1)));
-    //   this.isIncreasing = false;
-    // }
-    // if (this.color <= this.lowerBound) {
-    //   this.color = this.lowerBound
-    //   // this.color+=random([1,2,3,3,3,4,4,4,4]);
-    //   this.color += floor(abs(randomGaussian(1, 1)));
-    //   this.isIncreasing = true;
-    // }
   }
 
   makeHexagon() {
     let c = color(this.color)
-    // let c = color('#0f0')
     fill(c.levels[0], c.levels[1], c.levels[2], this.alpha);
-    // fill(this.color, this.alpha);
     noStroke();
     strokeWeight(5);
-    // stroke(`#6478E633`);
-
     angleMode(DEGREES);
     beginShape();
     for (let a = 30; a < 390; a += 60) {
@@ -182,6 +173,14 @@ class Hex {
     }
     endShape(CLOSE);
   }
-
-
 }
+
+
+function windowResized() {
+  let width = window.innerWidth;
+  let height = window.innerHeight * 1.6
+  resizeCanvas(width, height * 0.993);
+  initHex()
+}
+
+
