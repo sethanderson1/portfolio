@@ -178,9 +178,11 @@ class Hex {
 
 function windowResized() {
   let width = window.innerWidth;
-  let height = window.innerHeight * 1.6
-  resizeCanvas(width, height * 0.993);
-  initHex()
+  let height = window.innerHeight * 1.6;
+  if (width > 500) {
+    resizeCanvas(width, height * 0.993);
+    initHex()
+  }
 }
 
 
