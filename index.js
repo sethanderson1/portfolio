@@ -12,10 +12,9 @@ document.querySelector('.copyright-date').innerHTML = new Date().getFullYear();
 
 
 
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then(response => response.json())
-  .then(json => console.log(json))
-
+fetch('https://l8o8ahwhyf.execute-api.us-west-1.amazonaws.com/live/item/')
+    // .then(response => response.json())
+    // .then(json => console.log(json))
 
 
 
